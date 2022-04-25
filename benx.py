@@ -1,11 +1,10 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
-from datetime import datetime
 
 # Ler base
-url = 'C:\\Users\\pedro\\Dropbox\\Benx\\servicos.xlsx'
-df = pd.read_excel(url)
+url = 'https://github.com/soilmo/Indica/raw/main/servicos.csv?raw=true'
+df = pd.read_csv(url, encoding='utf-8', sep = ";")
 
 # Mudar título
 st.set_page_config(page_title = "Indica Leopoldina", page_icon=":nerd_face:")
