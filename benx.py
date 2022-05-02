@@ -28,7 +28,7 @@ st.title("Indica Leopoldina")
 
 st.markdown("Encontre as melhores indicações da região :smile:")
 
-#@st.cache(persist=True, max_entries = 20, ttl = 1800, show_spinner=False)
+@st.cache(persist=True, max_entries = 20, ttl = 1800, show_spinner=False)
 def enviar_email(tipo, termo, pessoa):
     
     subject = "IL|"+str(tipo)+"|"+str(termo)+"|"+str(pessoa)
@@ -54,14 +54,17 @@ def enviar_email(tipo, termo, pessoa):
         server.login(sender_email, password)
         server.sendmail(sender_email, receiver_email, text)
 
-#@st.cache(persist=True, max_entries = 20, ttl = 1800, show_spinner=False)
+@st.cache(persist=True, max_entries = 20, ttl = 1800, show_spinner=False)
 def opcoes_resultado(aux, i):
     nome = aux['nome'].iloc[i]
     telefone = aux['telefone'].iloc[i]
+    endereco = aux['endereco'].iloc[i]
+    categoria = aux['categoria'].iloc[i]
+    
     zap = str(aux['whatsapp'].iloc[i]).replace("-","").replace(".","").replace(" ","").replace("(","").replace(")","")
     descricao = aux['descricao'].iloc[i]
     insta = aux['instagram'].iloc[i]
-    return nome, telefone, zap, descricao, insta
+    return nome, categoria, endereco, telefone, zap, descricao, insta
 
 
 # Buscar categoria
@@ -80,7 +83,8 @@ aux = df[filtro]
     
 for i in range(aux.shape[0]):
 
-    nome, telefone, zap, descricao, insta = opcoes_resultado(aux, i)
+    #nome, endereco, telefone, zap, descricao, insta = opcoes_resultado(aux, i)
+    nome, categoria_res, endereco, telefone, zap, descricao, insta = opcoes_resultado(aux, i)
     if zap != "nan" and zap == zap:
         link_zap = 'https://api.whatsapp.com/send?phone=55'+str(zap)+'&text=Oi%20'+str(nome).replace(" ","%20")+'%2C%20te%20achei%20pelo%20Indica%20Leopoldina.%20Gostaria%20de%20saber%20mais%20sobre%20seu%20serviço%20de%20'+categoria.replace(" ","%20")
         t = '*Mensagem no Zap*'
@@ -98,7 +102,10 @@ for i in range(aux.shape[0]):
         
         if telefone == telefone:
                 st.markdown("__Telefone:__ " + str(telefone))
-            
+        if endereco == endereco:
+                st.markdown("__Endereço:__ " + str(endereco))
+        
+
         if zap != "nan" and zap == zap and insta != "nan" and insta == insta:
             st.markdown(link_zap + " | " +link_insta, unsafe_allow_html=True)
         elif (zap == "nan" or zap!=zap) and (insta != "nan" and insta == insta):
@@ -133,7 +140,9 @@ if st.session_state.busca != "":
 
     for i in range(aux.shape[0]):
 
-        nome, telefone, zap, descricao, insta = opcoes_resultado(aux, i)
+        #nome, telefone, zap, descricao, insta = opcoes_resultado(aux, i)
+        nome, categoria_res, endereco, telefone, zap, descricao, insta = opcoes_resultado(aux, i)
+    
         
         if zap != "nan" and zap == zap:
             link_zap = 'https://api.whatsapp.com/send?phone=55'+str(zap)+'&text=Oi%20'+str(nome).replace(" ","%20")+'%2C%20te%20achei%20pela%20Busca!%20Gostaria%20de%20saber%20mais%20sobre%20seu%20serviço%20de%20'+categoria.replace(" ","%20")
@@ -144,12 +153,14 @@ if st.session_state.busca != "":
             t = '*Instagram*'
             link_insta = f'[{t}]({link_insta})'
 
-        if st.button(nome + " "):
+        if st.button(nome + " | " + categoria_res):
             st.markdown("__Descrição:__ " + str(descricao))
             
             if telefone == telefone:
                 st.markdown("__Telefone:__ " + str(telefone))
-
+            if endereco == endereco:
+                st.markdown("__Endereço:__ " + str(endereco))
+        
             if zap != "nan" and zap == zap and insta != "nan" and insta == insta:
                 st.markdown(link_zap + " | " +link_insta, unsafe_allow_html=True)
             elif (zap == "nan" or zap!=zap) and (insta != "nan" and insta == insta):
