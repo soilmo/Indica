@@ -86,7 +86,9 @@ for i in range(aux.shape[0]):
     #nome, endereco, telefone, zap, descricao, insta = opcoes_resultado(aux, i)
     nome, categoria_res, endereco, telefone, zap, descricao, insta = opcoes_resultado(aux, i)
     if zap != "nan" and zap == zap:
-        link_zap = 'https://api.whatsapp.com/send?phone=55'+str(zap)+'&text=Oi%20'+str(nome).replace(" ","%20")+'%2C%20te%20achei%20pelo%20Indica%20Leopoldina.%20Gostaria%20de%20saber%20mais%20sobre%20seu%20serviço%20de%20'+categoria.replace(" ","%20")
+        #link_zap = 'https://api.whatsapp.com/send?phone=55'+str(zap)+'&text=Oi%20'+str(nome).replace(" ","%20")+'%2C%20te%20achei%20pelo%20Indica%20Leopoldina.%20Gostaria%20de%20saber%20mais%20sobre%20seu%20serviço%20de%20'+categoria.replace(" ","%20")
+        link_zap = 'https://api.whatsapp.com/send?phone=55'+str(zap)+'&text=Oi%20'+str(nome).replace(" ","%20")+'%2C%20te%20achei%20pelo%20Indica%20Leopoldina%20(https://bit.ly/indicaleopoldina).%20Gostaria%20de%20saber%20mais%20sobre%20seu%20serviço%20de%20'+categoria.replace(" ","%20")
+        
         t = '*Mensagem no Zap*'
         link_zap = f'[{t}]({link_zap})'
     if insta != "nan" and insta == insta:
@@ -145,7 +147,7 @@ if st.session_state.busca != "":
     
         
         if zap != "nan" and zap == zap:
-            link_zap = 'https://api.whatsapp.com/send?phone=55'+str(zap)+'&text=Oi%20'+str(nome).replace(" ","%20")+'%2C%20te%20achei%20pelo%20Indica%20Leopoldina.%20Gostaria%20de%20saber%20mais%20sobre%20seu%20serviço%20de%20'+categoria_res.replace(" ","%20")
+            link_zap = 'https://api.whatsapp.com/send?phone=55'+str(zap)+'&text=Oi%20'+str(nome).replace(" ","%20")+'%2C%20te%20achei%20pelo%20Indica%20Leopoldina%20(https://bit.ly/indicaleopoldina).%20Gostaria%20de%20saber%20mais%20sobre%20seu%20serviço%20de%20'+categoria_res.replace(" ","%20")
             t = '*Mensagem no Zap*'
             link_zap = f'[{t}]({link_zap})'
         if insta != "nan" and insta == insta:
