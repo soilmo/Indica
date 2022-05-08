@@ -83,10 +83,8 @@ aux = df[filtro]
     
 for i in range(aux.shape[0]):
 
-    #nome, endereco, telefone, zap, descricao, insta = opcoes_resultado(aux, i)
     nome, categoria_res, endereco, telefone, zap, descricao, insta = opcoes_resultado(aux, i)
     if zap != "nan" and zap == zap:
-        #link_zap = 'https://api.whatsapp.com/send?phone=55'+str(zap)+'&text=Oi%20'+str(nome).replace(" ","%20")+'%2C%20te%20achei%20pelo%20Indica%20Leopoldina.%20Gostaria%20de%20saber%20mais%20sobre%20seu%20serviço%20de%20'+categoria.replace(" ","%20")
         link_zap = 'https://api.whatsapp.com/send?phone=55'+str(zap)+'&text=Oi%20'+str(nome).replace(" ","%20")+'%2C%20te%20achei%20pelo%20Indica%20Leopoldina%20(https://bit.ly/indicaleopoldina).%20Gostaria%20de%20saber%20mais%20sobre%20seu%20serviço%20de%20'+categoria.replace(" ","%20")
         
         t = '*Mensagem no Zap*'
@@ -96,8 +94,6 @@ for i in range(aux.shape[0]):
         t = '*Instagram*'
         link_insta = f'[{t}]({link_insta})'
     
-    
-    #with st.expander(label=nome, expanded=False):
     if st.button(nome):
         
         st.markdown("__Descrição:__ " + str(descricao))
@@ -115,19 +111,20 @@ for i in range(aux.shape[0]):
         elif (zap != "nan" and zap == zap) and (insta == "nan" or insta != insta):
             st.markdown(link_zap, unsafe_allow_html=True)
         
-        #enviar_email("categoria", categoria, nome)
+        enviar_email("categoria", categoria, nome)
         
             
 # Busca específica
-st.session_state.busca = st.text_input("Não encontrou o que queria? Digite a palavra chave de sua busca", "").lower()
+st.session_state.busca = st.text_input("Não encontrou o que queria? Digite a palavra chave de sua busca", "").lower().replace(" ","")
 
 if st.session_state.busca != "":
 
     resultados = []
     for i in range(df.shape[0]):
         desc = df['descricao'].iloc[i]
+        cat = df['categoria'].iloc[i]
         try:
-            if st.session_state.busca in desc.lower():
+            if st.session_state.busca in desc.lower() or st.session_state.busca in cat.lower():
                 resultados.append(i)
         except:
             pass
@@ -142,7 +139,6 @@ if st.session_state.busca != "":
 
     for i in range(aux.shape[0]):
 
-        #nome, telefone, zap, descricao, insta = opcoes_resultado(aux, i)
         nome, categoria_res, endereco, telefone, zap, descricao, insta = opcoes_resultado(aux, i)
     
         
@@ -169,7 +165,7 @@ if st.session_state.busca != "":
                 st.markdown(link_insta, unsafe_allow_html=True)
             elif (zap != "nan" and zap == zap) and (insta == "nan" or insta != insta):
                 st.markdown(link_zap, unsafe_allow_html=True)
-            #enviar_email("busca", categoria, nome)
+            enviar_email("busca", categoria, nome)
         
 
 
