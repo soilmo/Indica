@@ -1,9 +1,5 @@
 import pandas as pd
 import streamlit as st
-#import email, smtplib, ssl
-
-#from email.mime.multipart import MIMEMultipart
-#from email.mime.text import MIMEText
 
 import telebot
 
@@ -37,31 +33,6 @@ def enviar_msg_telegram(bot, tipo, termo, pessoa):
     texto = "IL|"+str(tipo)+"|"+str(termo)+"|"+str(pessoa)
     bot.send_message("1333490728", texto)
 
-
-#@st.cache(persist=True, max_entries = 20, ttl = 1800, show_spinner=False)
-def enviar_email(tipo, termo, pessoa):
-    
-    subject = "IL|"+str(tipo)+"|"+str(termo)+"|"+str(pessoa)
-    body = "IL|"+str(tipo)+"|"+str(termo)+"|"+str(pessoa)
-    sender_email = "pedrohs.t19@gmail.com"
-    receiver_email = "pedrohs.t19@gmail.com"
-    password = "291096santiago"
-
-    # Create a multipart message and set headers
-    message = MIMEMultipart()
-    message["From"] = sender_email
-    message["To"] = receiver_email
-    message["Subject"] = subject
-    
-    # Add body to email
-    message.attach(MIMEText(body, "plain"))
-    text = message.as_string()
-
-    # Log in to server using secure context and send email
-    context = ssl.create_default_context()
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
-        server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, text)
 
 @st.cache(persist=True, max_entries = 20, ttl = 1800, show_spinner=False)
 def opcoes_resultado(aux, i):
@@ -120,7 +91,6 @@ for i in range(aux.shape[0]):
         elif (zap != "nan" and zap == zap) and (insta == "nan" or insta != insta):
             st.markdown(link_zap, unsafe_allow_html=True)
         
-        #enviar_email("categoria", categoria, nome)
         enviar_msg_telegram(bot, "categoria", categoria, nome)
         
             
@@ -175,7 +145,7 @@ if st.session_state.busca != "":
                 st.markdown(link_insta, unsafe_allow_html=True)
             elif (zap != "nan" and zap == zap) and (insta == "nan" or insta != insta):
                 st.markdown(link_zap, unsafe_allow_html=True)
-            #enviar_email("busca", categoria, nome)
+            
             enviar_msg_telegram(bot, "busca", categoria, nome)
         
         
