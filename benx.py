@@ -54,7 +54,7 @@ def enviar_email(tipo, termo, pessoa):
         server.login(sender_email, password)
         server.sendmail(sender_email, receiver_email, text)
 
-@st.cache(persist=True, max_entries = 20, ttl = 1800, show_spinner=False)
+#@st.cache(persist=True, max_entries = 20, ttl = 1800, show_spinner=False)
 def opcoes_resultado(aux, i):
     nome = aux['nome'].iloc[i]
     telefone = aux['telefone'].iloc[i]
