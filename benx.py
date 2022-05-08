@@ -1,10 +1,15 @@
 import pandas as pd
 import streamlit as st
-import email, smtplib, ssl
+#import email, smtplib, ssl
 
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+#from email.mime.multipart import MIMEMultipart
+#from email.mime.text import MIMEText
 
+import telebot
+
+# iniciar bot telegram
+api = '2033329178:AAFAzrTtJE3uYqAoyEBdMlns_GcLjpk2big'
+bot = telebot.TeleBot(api)
 
 # Ler base
 url = 'https://github.com/soilmo/Indica/raw/main/servicos.csv?raw=true'
@@ -27,6 +32,11 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 st.title("Indica Leopoldina")
 
 st.markdown("Encontre as melhores indicações da região :smile:")
+
+def enviar_msg_telegram(bot, tipo, termo, pessoa):
+    texto = "IL|"+str(tipo)+"|"+str(termo)+"|"+str(pessoa)
+    bot.send_message("1333490728", texto)
+
 
 #@st.cache(persist=True, max_entries = 20, ttl = 1800, show_spinner=False)
 def enviar_email(tipo, termo, pessoa):
@@ -111,6 +121,7 @@ for i in range(aux.shape[0]):
             st.markdown(link_zap, unsafe_allow_html=True)
         
         #enviar_email("categoria", categoria, nome)
+        enviar_msg_telegram(bot, "categoria", categoria, nome)
         
             
 # Busca específica
@@ -165,6 +176,8 @@ if st.session_state.busca != "":
             elif (zap != "nan" and zap == zap) and (insta == "nan" or insta != insta):
                 st.markdown(link_zap, unsafe_allow_html=True)
             #enviar_email("busca", categoria, nome)
+            enviar_msg_telegram(bot, "busca", categoria, nome)
+        
         
 
 
