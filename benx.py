@@ -42,8 +42,7 @@ def enviar_email(tipo, termo, pessoa):
     message["From"] = sender_email
     message["To"] = receiver_email
     message["Subject"] = subject
-    message["Bcc"] = receiver_email  # Recommended for mass emails
-
+    
     # Add body to email
     message.attach(MIMEText(body, "plain"))
     text = message.as_string()
@@ -54,7 +53,7 @@ def enviar_email(tipo, termo, pessoa):
         server.login(sender_email, password)
         server.sendmail(sender_email, receiver_email, text)
 
-#@st.cache(persist=True, max_entries = 20, ttl = 1800, show_spinner=False)
+@st.cache(persist=True, max_entries = 20, ttl = 1800, show_spinner=False)
 def opcoes_resultado(aux, i):
     nome = aux['nome'].iloc[i]
     telefone = aux['telefone'].iloc[i]
@@ -111,7 +110,7 @@ for i in range(aux.shape[0]):
         elif (zap != "nan" and zap == zap) and (insta == "nan" or insta != insta):
             st.markdown(link_zap, unsafe_allow_html=True)
         
-        enviar_email("categoria", categoria, nome)
+        #enviar_email("categoria", categoria, nome)
         
             
 # Busca específica
@@ -165,7 +164,7 @@ if st.session_state.busca != "":
                 st.markdown(link_insta, unsafe_allow_html=True)
             elif (zap != "nan" and zap == zap) and (insta == "nan" or insta != insta):
                 st.markdown(link_zap, unsafe_allow_html=True)
-            enviar_email("busca", categoria, nome)
+            #enviar_email("busca", categoria, nome)
         
 
 
