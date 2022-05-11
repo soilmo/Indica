@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+from datetime import datetime
 
 import telebot
 
@@ -27,9 +28,12 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 # Carregar Logo
 st.title("Indica Leopoldina")
 
-st.markdown("Encontre as melhores indicações da região :smile:")
+t = "*Indicações ou dúvidas? Fale com a gente :)*"
+link_duvidas = 'https://api.whatsapp.com/send?phone=5512982328955&text=Oi%20Indica%20Leopoldina!%20Pode%20me%20ajudar%3F'
+st.markdown(f'[{t}]({link_duvidas})', unsafe_allow_html=True)
 
 def enviar_msg_telegram(bot, tipo, termo, pessoa):
+    #texto = "IL|"+str(tipo)+"|"+str(termo)+"|"+str(pessoa)+"|"+datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
     texto = "IL|"+str(tipo)+"|"+str(termo)+"|"+str(pessoa)
     bot.send_message("1333490728", texto)
 
@@ -146,11 +150,6 @@ if st.session_state.busca != "":
             elif (zap != "nan" and zap == zap) and (insta == "nan" or insta != insta):
                 st.markdown(link_zap, unsafe_allow_html=True)
             
-            enviar_msg_telegram(bot, "busca", categoria, nome)
+            enviar_msg_telegram(bot, "busca", categoria_res, nome)
         
         
-
-
-t = "*Indicações, dúvidas ou sugestões? Fale com a gente :)*"
-link_duvidas = 'https://api.whatsapp.com/send?phone=5512982328955&text=Oi%20Indica%20Leopoldina!%20Pode%20me%20ajudar%3F'
-st.markdown(f'[{t}]({link_duvidas})', unsafe_allow_html=True)
