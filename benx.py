@@ -29,7 +29,8 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 st.title("Indica Leopoldina")
 
 t = "*Indicações ou dúvidas? Fale com a gente :)*"
-link_duvidas = 'https://api.whatsapp.com/send?phone=5512982328955&text=Oi%20Indica%20Leopoldina!%20Pode%20me%20ajudar%3F'
+#link_duvidas = 'https://api.whatsapp.com/send?phone=5512982328955&text=Oi%20Indica%20Leopoldina!%20Pode%20me%20ajudar%3F'
+link_duvidas = 'https://instagram.com/indicaleopoldina?igshid=YmMyMTA2M2Y='
 st.markdown(f'[{t}]({link_duvidas})', unsafe_allow_html=True)
 
 def enviar_msg_telegram(bot, tipo, termo, pessoa):
@@ -114,9 +115,9 @@ if st.session_state.busca != "":
             pass
 
     if len(resultados) == 1:
-        st.markdown("Temos " + str(len(resultados)) + " resultado para você")
+        st.markdown("Temos " + str(len(resultados)) + " resultado")
     else:
-        st.markdown("Temos " + str(len(resultados)) + " resultados para você")
+        st.markdown("Temos " + str(len(resultados)) + " resultados")
 
     filtro = df.index.isin(resultados)
     aux = df[filtro]
